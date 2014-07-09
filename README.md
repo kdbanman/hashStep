@@ -7,15 +7,16 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- write bower and npm project jsons
+- set up logging socket.io server with express sessions
 
 <!-- -->
 
-- set up logging socket.io server
+- point stateHash.gameruum.io and hashStep.gameruum.io correctly on nginx
 
 <!-- -->
 
-- point stateHash.gameruum.io and hashStep.gameruum.io correctly
+- convert rand.js to an object `generator` as per the spec
+    - callbacks for devops simplicity - fuck deployment scripts
 
 # about
 
