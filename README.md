@@ -7,7 +7,7 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- set up logging socket.io server with express sessions
+- augment server scaffold with sessions
 
 <!-- -->
 
@@ -17,6 +17,10 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 - convert rand.js to an object `generator` as per the spec
     - callbacks for devops simplicity - fuck deployment scripts
+
+<!-- -->
+
+- global middleware (any route) tests for session, if none then auto assign
 
 # about
 
