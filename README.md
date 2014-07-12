@@ -8,7 +8,7 @@ Testing phase project #2 for [gameruum](gameruum.io)
 <!-- -->
 
 - augment server scaffold with cookie-sessions
-    - multiple node scalability and persistence across server failures not necessary
+    - update package.json for actual dependencies
 
 <!-- -->
 
