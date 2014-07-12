@@ -7,7 +7,20 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- augment server scaffold with sessions
+- augment server scaffold with cookie-sessions
+    - multiple node scalability and persistence across server failures not necessary
+
+<!-- -->
+
+- build everything
+
+<!-- -->
+
+- test on localhost with multiple browsers
+
+<!-- -->
+
+- run on AWS instance
 
 <!-- -->
 
@@ -17,10 +30,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 - convert rand.js to an object `generator` as per the spec
     - callbacks for devops simplicity - fuck deployment scripts
-
-<!-- -->
-
-- global middleware (any route) tests for session, if none then auto assign
 
 # about
 
