@@ -7,12 +7,35 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- augment server scaffold with cookie-sessions
-    - update package.json for actual dependencies
+- convert rand.js to bower mersenne twister
 
 <!-- -->
 
-- build everything
+- start of server, traceur compile client_lib directory to public main.js
+    - fs.watch(path.something(<srv.js dir>, client_lib) for traceur compile
+
+<!-- -->
+
+- convert rand.js to es6 module for traceur to deal with
+    - try to use it with the non-es6 stuff with some sort of main script consoley output thing
+
+<!-- -->
+
+- get bower
+    - bootstrap
+    - jquery
+    - https://github.com/pigulla/mersennetwister
+
+<!-- -->
+
+- convert rand.js to an object `generator` as per the spec
+
+<!-- -->
+
+- include stable-stringify and string hashing methods
+    - https://github.com/substack/json-stable-stringify
+    - https://github.com/Caligatio/jsSHA
+    - https://github.com/h2non/jshashes
 
 <!-- -->
 
@@ -25,11 +48,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 <!-- -->
 
 - point stateHash.gameruum.io and hashStep.gameruum.io correctly on nginx
-
-<!-- -->
-
-- convert rand.js to an object `generator` as per the spec
-    - callbacks for devops simplicity - fuck deployment scripts
 
 # about
 
