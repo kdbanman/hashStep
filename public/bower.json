@@ -1,0 +1,18 @@
+{
+  "name": "hashStep",
+  "version": "0.0.1",
+  "homepage": "hashStep.gameruum.io",
+  "authors": [
+    "kdbanman <kdbanman@ualberta.ca>"
+  ],
+  "description": "stepwise random object generation synchronized across multiple clients",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
