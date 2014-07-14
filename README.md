@@ -7,28 +7,24 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- convert rand.js to bower mersenne twister
-
-<!-- -->
-
-- start of server, traceur compile client_lib directory to public main.js
-    - fs.watch(path.something(<srv.js dir>, client_lib) for traceur compile
-
-<!-- -->
-
 - convert rand.js to es6 module for traceur to deal with
-    - try to use it with the non-es6 stuff with some sort of main script consoley output thing
+    - bower traceur
+    - test it with text/traceur
+
+<!-- -->
+
+- convert rand.js to an object generator with yield as per the spec
 
 <!-- -->
 
 - get bower
     - bootstrap
     - jquery
-    - https://github.com/pigulla/mersennetwister
+    - https://github.com/pigulla/mersennetwister once merged
 
 <!-- -->
 
-- convert rand.js to an object `generator` as per the spec
+- bootstrap the stuff from the notebook
 
 <!-- -->
 
