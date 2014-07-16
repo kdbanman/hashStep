@@ -1,0 +1,5 @@
+#object-panel {
+    height: 50em;
+    max-height: 50em;
+    overflow-y: scroll;
+}

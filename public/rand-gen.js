@@ -143,7 +143,7 @@ rGen.generateObject = function* (length, rng)
         // generate property name by assigning and deleting each generation
         var finalName = '';
         for (let name of rGen.generateFieldName(rng)) {
-            obj[name] = "Generating...";
+            obj[name] = "...";
             yield obj;
 
             delete obj[name];
@@ -187,6 +187,7 @@ var timer = setInterval(function () {
     if (next.done) {
         clearInterval(timer);
     } else {
-        console.log(JSON.stringify(next.value));
+        $('#object-text').text(JSON.stringify(next.value, null, '  '));
+        $('#object-panel').scrollTop($('#object-panel').prop('scrollHeight'));
     }
-}, 50)
+}, 5)
