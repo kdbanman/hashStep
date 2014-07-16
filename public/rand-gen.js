@@ -1,35 +1,25 @@
-/**
- *  Generates the nth fibonacci number array tree.
- *
- *  EX: stepwise n = 5
- *      
- *      [3, 4]
- *      [[1, 2], 4]
- *      [[1, [0, 1]], 4]
- *      [[1, [0, 1]], [2, 3]]
- *      [[1, [0, 1]], [[0, 1], 3]]
- *      [[1, [0, 1]], [[0, 1], [1, 2]]]
- *      [[1, [0, 1]], [[0, 1], [1, [0, 1]]]]
- */
-var genFibArr = function* (n)
+var generateArray = function* (length, rng)
 {
-    if (n === 0 || n === 1) return n;
-    else {
-        var arr = [n - 2, n - 1];
+    var arr = [];
+    yield arr;
+    for (var i = 0; i < 5; i++) {
+        arr.push(i);
         yield arr;
+    }
+}
 
-        for (let leftArr of genFibArr(arr[0])) {
-            arr[0] = leftArr;
-            yield arr;
-        }
-
-        for (let rightArr of genFibArr(arr[1])) {
-            arr[1] = rightArr;
-            yield arr;
+var generateObject = function* (fieldCount, seed)
+{
+    var obj = {}
+    yield obj;
+    for (var i = 0; i < 7; i++) {
+        for (let arr of generateArray()) {
+            obj[i] = arr;
+            yield obj;
         }
     }
 }
-for (let s of genFibArr(5)) {
-    console.log(s.toString());
 
-}   
+for (let o of generateObject()) {
+    console.log(JSON.stringify(o));
+}
