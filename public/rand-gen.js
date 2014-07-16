@@ -18,16 +18,15 @@ rGen.generate = function* (fieldCount, seed)
         // generation to the object
         var fieldName = '';
         for (let name of rGen.generateFieldName(rng)) {
-            obj[fieldName] = undefined;
+            obj[name] = "Generating...";
             yield obj;
 
-            delete obj[fieldName];
+            delete obj[name];
             fieldName = name;
         }
 
         // use the generated field name and assign it a field value
         for (let field of rGen.generateField(fieldCount, rng)) {
-            console.log("debug");
             obj[fieldName] = field;
             yield obj;
         }
@@ -36,8 +35,9 @@ rGen.generate = function* (fieldCount, seed)
 
 rGen.generateFieldName = function* (rng)
 {
-    //TODO
-    yield "butt";
+    for (let name of rGen.generateString(8, rng)) {
+        yield name;
+    }
 }
 
 rGen.generateField = function (length, rng)
@@ -107,14 +107,25 @@ rGen.generateField = function (length, rng)
     ];
 
     // return object field generator
-    var i = rGen.generateInt(generator.length, rng).next().value;
+    var i = rGen.randomInt(generator.length, rng);
     return generator[i]();
 }
 
 rGen.generateString = function* (length, rng)
 {
-    //TODO
-    yield "not a string";
+    // allow only non-control utf8
+    var illegalCodes = function (code) {
+        if (code >= 0x0000 && code <= 0x001f) return true;
+        if (code >= 0x0080 && code <= 0x009f) return true;
+        return code === 0x007f;
+    };
+
+    var generatedString = '';
+    yield generatedString;
+    for(var i = 0; i < length; i++) {
+        generatedString += String.fromCharCode(rGen.randomInt(0x00ff, rng, illegalCodes));
+        yield generatedString;
+    }
 }
 
 rGen.generateInt = function* (rightBound, rng, illegal)
@@ -129,6 +140,12 @@ rGen.generateInt = function* (rightBound, rng, illegal)
     }
 
     yield rand();
+}
+rGen.randomInt = function (rightBound, rng, illegal)
+{
+    //TODO this should really be the basic element, with the
+    //     generator wrapping the function...  jeez.
+    return rGen.generateInt(rightBound, rng, illegal).next().value;
 }
 
 rGen.generateObject = function* (length, rng)
@@ -151,6 +168,9 @@ rGen.generateArray = function* (length, rng)
 var gen = rGen.generate(10, 43);
 var timer = setInterval(function () {
     var next = gen.next();
-    if (next.done) clearInterval(timer);
-    else console.log(JSON.stringify(next.value));
+    if (next.done) {
+        clearInterval(timer);
+    } else {
+        console.log(JSON.stringify(next.value));
+    }
 }, 500)
