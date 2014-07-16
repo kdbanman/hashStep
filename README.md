@@ -8,8 +8,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 <!-- -->
 
 - convert rand.js to es6 module for traceur to deal with
-    - bower traceur
-    - test it with text/traceur
 
 <!-- -->
 
@@ -19,12 +17,15 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 - get bower
     - bootstrap
-    - jquery
-    - https://github.com/pigulla/mersennetwister once merged
 
 <!-- -->
 
 - bootstrap the stuff from the notebook
+
+<!-- -->
+
+- write `rooom` library that models basic `gameroom` interface
+    - `.loop()`
 
 <!-- -->
 
