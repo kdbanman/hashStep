@@ -7,16 +7,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- convert rand.js to an object generator with yield as per the spec
-    - string, array, object call generateField with ceil(sqrt(length))
-
-<!-- -->
-
-- get bower
-    - bootstrap
-
-<!-- -->
-
 - bootstrap the stuff from the notebook
 
 <!-- -->
