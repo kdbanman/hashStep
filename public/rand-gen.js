@@ -10,26 +10,9 @@ var rGen = {};
 rGen.generate = function* (fieldCount, seed)
 {
     var rng = new MersenneTwister(seed);
-    
-    var obj = {}
-    yield obj;
-    for (var i = 0; i < fieldCount; i++) {
-        // generate property name by assigning and deleting each
-        // generation to the object
-        var fieldName = '';
-        for (let name of rGen.generateFieldName(rng)) {
-            obj[name] = "Generating...";
-            yield obj;
 
-            delete obj[name];
-            fieldName = name;
-        }
-
-        // use the generated field name and assign it a field value
-        for (let field of rGen.generateField(fieldCount, rng)) {
-            obj[fieldName] = field;
-            yield obj;
-        }
+    for (let obj of rGen.generateObject(fieldCount, rng)) {
+        yield obj;
     }
 }
 
@@ -150,22 +133,55 @@ rGen.randomInt = function (rightBound, rng, illegal)
 
 rGen.generateObject = function* (length, rng)
 {
-    //TODO
-    yield {ass: "hole"};
+    var obj = {}
+    yield obj;
+    
+    // length of nested objects, arrays, and strings decrease nonlinearly
+    var nestedLength = Math.ceil(Math.sqrt(length));
+
+    for (var i = 0; i < length; i++) {
+        // generate property name by assigning and deleting each generation
+        var finalName = '';
+        for (let name of rGen.generateFieldName(rng)) {
+            obj[name] = "Generating...";
+            yield obj;
+
+            delete obj[name];
+            finalName = name;
+        }
+
+        // use the generated field name and assign it a field value.
+        for (let field of rGen.generateField(nestedLength, rng)) {
+            obj[finalName] = field;
+            yield obj;
+        }
+    }
+
 }
 
 rGen.generateArray = function* (length, rng)
 {
-    //TODO
     var arr = [];
     yield arr;
-    for (var i = 0; i < 5; i++) {
-        arr.push(i);
-        yield arr;
+
+    // length of nested objects, arrays, and strings decrease nonlinearly
+    var nestedLength = Math.ceil(Math.sqrt(length));
+
+    for (var i = 0; i < length; i++) {
+        // generate array value by pushing and popping each generation
+        var finalVal;
+        for (let val of rGen.generateField(nestedLength, rng)) {
+            arr.push(val);
+            yield arr;
+
+            arr.pop();
+            finalVal = val;
+        }
+        arr.push(finalVal);
     }
 }
 
-var gen = rGen.generate(10, 43);
+var gen = rGen.generate(100, 43);
 var timer = setInterval(function () {
     var next = gen.next();
     if (next.done) {
@@ -173,4 +189,4 @@ var timer = setInterval(function () {
     } else {
         console.log(JSON.stringify(next.value));
     }
-}, 500)
+}, 50)
