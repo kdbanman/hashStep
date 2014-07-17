@@ -7,12 +7,22 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- bootstrap the stuff from the notebook
+- write handlebars client template
+    - client <id>
+        - status: <state>
+        - latency: <ms>
 
 <!-- -->
 
-- write `rooom` library that models basic `gameroom` interface
-    - `.loop()`
+- write handlebars hashcode template
+    - <hash name>: <hashcode || blank>
+
+<!-- -->
+
+- write `room` library that models basic `gameroom` interface
+    - room code should be a separate es5 library used by the main es6 app logic
+        - app.js: `room.loop = function () ...`
+        - ready button enabled on connection
 
 <!-- -->
 
