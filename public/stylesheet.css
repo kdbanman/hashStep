@@ -1,5 +1,14 @@
-#object-panel {
-    height: 50em;
-    max-height: 50em;
+.navbar {
+    border-radius: 0;
+}
+
+.btn {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+#object-view {
+    height: 40em;
+    max-height: 40em;
     overflow-y: scroll;
 }

@@ -1,37 +1,84 @@
 <!doctype html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>hashStep</title>
-        <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="stylesheet.css" />
-    </head>
-    <body>
-        <div class='container-fluid'>
-            <div class='row'>
-                <div class='panel panel-primary' id='object'>
-                    <div class='panel-heading'>Generated Object</div>
-                    <div class='panel-body' id='object-panel'>
-                        <pre><code id='object-text'>Not 404</code></pre>
-                    </div>
-                </div>
-            </div>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashStep</title>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+  </head>
+  <body>
+    <nav class='navbar navbar-default' role='navigation'>
+      <div class='container-fluid'>
+        <div class='navbar-header'>
+          <a class='navbar-brand' href='#'>
+            HashStep Synchronized Object Generator
+          </a>
         </div>
+      </div>
+    </nav>
+    <div class='container-fluid'>
+      <div class='row'> <!-- main row for all content -->
+        <div class='col-sm-6'> <!-- left main column -->
+          <div class='row'> <!-- button row -->
+            <div class='col-xs-6'>
+              <button type='button' class='btn btn-success' id='ready'>
+                Ready
+              </button>
+            </div>
+            <div class='col-xs-6'>
+              <button type='button' class='btn btn-success' id='resume'>
+                Resume
+              </button>
+            </div>
+          </div>
+          <div class='row'> <!-- client status row -->
+            <div class='col-xs-12'>
+              <div class='panel panel-primary' id='client-panel'>
+                <div class='panel-heading'>Clients</div>
+                <div class='panel-body'>
+                  <div class='list-group'>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='row'> <!-- hash status row -->
+            <div class='col-xs-12'>
+              <div class='panel panel-primary' id='hash-panel'>
+                <div class='panel-heading'>Hashcodes</div>
+                <div class='panel-body'>
+                  <div class='list-group'>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-6'> <!-- right main column, object view -->
+          <div class='panel panel-primary' id='object-panel'>
+            <div class='panel-heading'>Generated Object</div>
+            <div class='panel-body' id='object-view'>
+              <pre><code id='object-text'></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
-        <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
-        <script>
-            traceur.options.experimental = traceur.options.asyncFunctions
-                                         = traceur.options.blockBinding
-                                         = traceur.options.symbols
-                                         = traceur.options.types
-                                         = traceur.options.annotations
-                                         = true;
-        </script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/bower_components/mersennetwister/src/MersenneTwister.js"></script>
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script type="module" src="/rand-gen.js"></script>
-        <script src="/client.js"></script>
-    </body>
+    <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+    <script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+    <script>
+      traceur.options.experimental = traceur.options.asyncFunctions
+                     = traceur.options.blockBinding
+                     = traceur.options.symbols
+                     = traceur.options.types
+                     = traceur.options.annotations
+                     = true;
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/bower_components/mersennetwister/src/MersenneTwister.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="module" src="/room.js"></script>
+  </body>
 </html>
