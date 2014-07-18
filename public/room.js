@@ -1,13 +1,21 @@
-var socket = io(window.location.origin);
+var room = {};
 
-import {generate} from 'rand-gen';
-var gen = generate(100, 43);
-var timer = setInterval(function () {
-    var next = gen.next();
-    if (next.done) {
-        clearInterval(timer);
-    } else {
-        $('#object-text').text(JSON.stringify(next.value, null, '  '));
-        $('#object-view').scrollTop($('#object-view').prop('scrollHeight'));
-    }
-}, 5)
+room.socket = io(window.location.origin);
+
+room.state = {};
+
+room.loop = function ()
+{
+    console.log("ERROR: room.loop() function must be defined!");
+};
+
+room.start = function ()
+{
+    room.timer = setInterval(room.loop, 5);
+}
+
+room.close = function ()
+{
+    clearInterval(room.timer);
+    console.log("Room closed.");
+}
