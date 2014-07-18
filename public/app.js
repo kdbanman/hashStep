@@ -16,4 +16,5 @@ room.loop = function ()
     }
 }
 
-room.start();
+//TODO: hook this to onclick for non-disabled ready button, could alias to room.connect()
+room.ready();

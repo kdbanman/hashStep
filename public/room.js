@@ -1,7 +1,5 @@
 var room = {};
 
-room.socket = io(window.location.origin);
-
 room.state = {};
 
 room.loop = function ()
@@ -12,6 +10,12 @@ room.loop = function ()
 room.start = function ()
 {
     room.timer = setInterval(room.loop, 5);
+}
+
+room.ready = function ()
+{
+    room.socket = io(window.location.origin);
+    room.start();
 }
 
 room.close = function ()
