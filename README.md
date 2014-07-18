@@ -7,19 +7,26 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
+- change buttons to 'connect' and 'start'
+
+<!-- -->
+
+- document intended use case step by step
+
+<!-- -->
+
 - `/reset/<int>` starts room waiting for <int> clients
 
 <!-- -->
 
 - serve seeded app on `room.state` for `?seed=<int>&size=<int>`
     - seed or size is 42 if not provided
+    - if connection is attempted ('ready' is pressed) with bad seed or size, then room's bad seed use case is activated
 
 <!-- -->
 
 - write `room` library that models basic `gameroom` interface
-    - room code should be a separate es5 library used by the main es6 app logic
-        - app.js: `room.loop = function () ...`
-        - ready button enabled on connection
+    - ready button handshakes with room server
 
 <!-- -->
 
@@ -57,7 +64,7 @@ Testing phase project #2 for [gameruum](gameruum.io)
 hashStep is a two page client-server application using a mersenne twister and socket.io to test cross-browser, realtime synchronization.
 
 The server can be in one of two master states, `open` or `closed`.
-An `open` server serves the main application page with a seed for each client's random number generator.
+An `open` server serves the main application page with a seed for each client's random object generator.
 A `closed` server serves a page indicating that the server is full and/or running.
 
 The main application page connects with the server's socket.io instance.
@@ -119,3 +126,9 @@ The report is sent after each round of object generation and hashing.
 Errors are thrown when something unaccounted for happens.
 
     {<unspecified>}
+
+# learned
+
+- es6
+    - generators
+    - traceur
