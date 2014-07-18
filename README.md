@@ -7,6 +7,22 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
+- `/reset/<int>` starts room waiting for <int> clients
+
+<!-- -->
+
+- serve seeded app on `room.state` for `?seed=<int>&size=<int>`
+    - seed or size is 42 if not provided
+
+<!-- -->
+
+- write `room` library that models basic `gameroom` interface
+    - room code should be a separate es5 library used by the main es6 app logic
+        - app.js: `room.loop = function () ...`
+        - ready button enabled on connection
+
+<!-- -->
+
 - write handlebars client template
     - client <id>
         - status: <state>
@@ -16,13 +32,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 - write handlebars hashcode template
     - <hash name>: <hashcode || blank>
-
-<!-- -->
-
-- write `room` library that models basic `gameroom` interface
-    - room code should be a separate es5 library used by the main es6 app logic
-        - app.js: `room.loop = function () ...`
-        - ready button enabled on connection
 
 <!-- -->
 
