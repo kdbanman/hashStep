@@ -8,10 +8,8 @@
     "cookies": "0.4.1",
     "morgan": "~1.0.0",
     "socket.io": "~1.0.0",
-    "underscore": "",
+    "underscore": ""    
   },
-  "devDependencies": {},
-  "optionalDependencies": {},
   "engines": {
     "node": ">=0.10.0"
   }
