@@ -8,6 +8,7 @@ Testing phase project #2 for [gameruum](gameruum.io)
 <!-- -->
 
 - figure out why client change event isn't behaving correctly
+    - figure out why all sessions have the same id
 
 <!-- -->
 
