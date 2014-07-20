@@ -56,11 +56,37 @@ ioSrv.use(function (socket, next) {
 });
 
 // receive client socket connections
+// TODO: the two stateful things below might be better placed/named...
+var activeClients = {};
+var currHash = null;
 ioSrv.on('connection', function (socket) {
+
+    // add client to active list by session id
+    activeClients[socket.session.id] = 'CONNECTED';
+
+    // send current client data,
+    // expect current state hash (seed verification) as response
+    socket.emit('server handshake', activeClients);
+
+    // process handshake response
+    socket.on('client handshake', function (clientHash) {
+        if (currHash === null) currHash = clientHash;
+
+        if (clientHash === currHash) {
+            activeClients[socket.session.id] = 'VERIFIED';
+            // inform client of correct seed
+            socket.emit('seed verified', activeClients);
+        } else {
+            activeClients[socket.session.id] = 'ERR: BAD SEED';
+            // inform client of bad seed
+            socket.emit('bad seed', activeClients);
+        }
+    });
 
     // report disconnections
     socket.on('disconnect', function() {
         console.log('Disconnection from %d', socket.session.id);
+        delete activeClients[socket.session.id];
     });
 
     // report errors (socket.io error event and my own)
