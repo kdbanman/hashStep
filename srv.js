@@ -107,12 +107,14 @@ ioSrv.on('connection', function (socket) {
                 socket.emit('seed verified', activeClients);
                 // notify all clients of verification
                 ioSrv.emit('change', activeClients);
+                socket.emit('change', activeClients);
             } else {
                 activeClients[socket.session.id] = 'ERR: BAD SEED';
                 // inform client of bad seed
                 socket.emit('bad seed', activeClients);
                 // notify all clients of bad seed
                 ioSrv.emit('change', activeClients);
+                socket.emit('change', activeClients);
             }
         });
     } else {
