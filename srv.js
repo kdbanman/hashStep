@@ -77,6 +77,8 @@ ioSrv.use(function (socket, next) {
 //       (remember, the room is dumb.  all connected --> running.  "readiness"
 //       is an app-level consideration)
 ioSrv.on('connection', function (socket) {
+    
+    console.log('Connection from %d', socket.session.id);
 
     // if room isn't full, perform handshake
     if (Object.keys(activeClients).length < expectedPlayers) {
@@ -89,6 +91,10 @@ ioSrv.on('connection', function (socket) {
 
         // process handshake response
         socket.on('client handshake', function (clientHash) {
+            
+            console.log('Handshake from %d', socket.session.id);
+            console.log('  ' + clientHash);
+            
             if (currHash === null) currHash = clientHash;
 
             if (clientHash === currHash) {
