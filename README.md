@@ -7,6 +7,10 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
+- figure out why client change event isn't behaving correctly
+
+<!-- -->
+
 - document intended use case step by step
 
 <!-- -->
