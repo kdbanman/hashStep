@@ -34,6 +34,21 @@ app.use(function (req, res, next) {
     next();
 });
 
+var activeClients = {};
+var currHash = null;
+var expectedPlayers = 3;
+app.get('/reset/:expectedPlayers', function (req, res) {
+    try {
+        expectedPlayers = parseInt(req.params.expectedPlayers);
+        activeClients = {};
+        currHash = null;
+    catch (e) {
+        res.send(500, JSON.stringify(e));
+    }
+
+    res.send(200, 'Room reset, waiting for ' + expectedPlayers + ' clients.')
+});
+
 // try to serve requests as static file requests from the public/ directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -56,30 +71,35 @@ ioSrv.use(function (socket, next) {
 });
 
 // receive client socket connections
-// TODO: the two stateful things below might be better placed/named...
-var activeClients = {};
-var currHash = null;
+// TODO: freedom to connect, behavior on disconnect, and maybe other things
+//       are completely different after transition to running state when
+//       all are connected.
+//       (remember, the room is dumb.  all connected --> running.  "readiness"
+//       is an app-level consideration)
 ioSrv.on('connection', function (socket) {
 
-    // add client to active list by session id
-    activeClients[socket.session.id] = 'CONNECTED';
+    // if room isn't full, perform handshake
+    if (Object.keys(activeClients).length < expectedPlayers) {
+        // add client to active list by session id
+        activeClients[socket.session.id] = 'CONNECTED';
 
-    // send current client data,
-    // expect current state hash (seed verification) as response
-    socket.emit('server handshake', activeClients);
+        // send current client data,
+        // expect current state hash (seed verification) as response
+        socket.emit('server handshake', activeClients);
 
-    // process handshake response
-    socket.on('client handshake', function (clientHash) {
-        if (currHash === null) currHash = clientHash;
+        // process handshake response
+        socket.on('client handshake', function (clientHash) {
+            if (currHash === null) currHash = clientHash;
 
-        if (clientHash === currHash) {
-            activeClients[socket.session.id] = 'VERIFIED';
-            // inform client of correct seed
-            socket.emit('seed verified', activeClients);
-        } else {
-            activeClients[socket.session.id] = 'ERR: BAD SEED';
-            // inform client of bad seed
-            socket.emit('bad seed', activeClients);
+            if (clientHash === currHash) {
+                activeClients[socket.session.id] = 'VERIFIED';
+                // inform client of correct seed
+                socket.emit('seed verified', activeClients);
+            } else {
+                activeClients[socket.session.id] = 'ERR: BAD SEED';
+                // inform client of bad seed
+                socket.emit('bad seed', activeClients);
+            }
         }
     });
 
@@ -87,6 +107,9 @@ ioSrv.on('connection', function (socket) {
     socket.on('disconnect', function() {
         console.log('Disconnection from %d', socket.session.id);
         delete activeClients[socket.session.id];
+
+        //TODO: if room has started and not been closed, add socket session
+        //      to allowedReconnect list
     });
 
     // report errors (socket.io error event and my own)
