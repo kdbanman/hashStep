@@ -11,7 +11,7 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- `/reset/<int>` starts room waiting for <int> clients
+- use es-hash djb2 for gamestate hash instead of JSON stringify
 
 <!-- -->
 
