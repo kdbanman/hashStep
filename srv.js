@@ -85,6 +85,9 @@ ioSrv.on('connection', function (socket) {
         // add client to active list by session id
         activeClients[socket.session.id] = 'CONNECTED';
 
+        // notify all clients of new connection
+        ioSrv.emit('change', activeClients);
+
         // send current client data,
         // expect current state hash (seed verification) as response
         socket.emit('server handshake', activeClients);
@@ -101,18 +104,27 @@ ioSrv.on('connection', function (socket) {
                 activeClients[socket.session.id] = 'VERIFIED';
                 // inform client of correct seed
                 socket.emit('seed verified', activeClients);
+                // notify all clients of verification
+                ioSrv.emit('change', activeClients);
             } else {
                 activeClients[socket.session.id] = 'ERR: BAD SEED';
                 // inform client of bad seed
                 socket.emit('bad seed', activeClients);
+                // notify all clients of bad seed
+                ioSrv.emit('change', activeClients);
             }
         });
+    } else {
+        console.log('%d rejected - room full.', socket.session.id);
     }
 
     // report disconnections
     socket.on('disconnect', function() {
         console.log('Disconnection from %d', socket.session.id);
         delete activeClients[socket.session.id];
+                
+        // notify all clients of disconnection
+        ioSrv.emit('change', activeClients);
 
         //TODO: if room has started and not been closed, add socket session
         //      to allowedReconnect list
