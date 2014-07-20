@@ -25,6 +25,9 @@ room.ready = function ()
     });
 
     room.socket.on('change', function (clients) {
+        //DEBUG
+        console.log('change');
+
         //XXX should probably call an api-level room.connectionChange(newStatus) function or something, because this is app-level:
         $('#client-panel .panel-body').text(JSON.stringify(clients, null, '  '));
     });
