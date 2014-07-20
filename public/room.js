@@ -15,6 +15,13 @@ room.start = function ()
 room.ready = function ()
 {
     room.socket = io(window.location.origin);
+
+    room.socket.on('server handshake', function (clients) {
+        $('#client-panel .panel-body').text(JSON.stringify(clients, null, '  '));
+
+        room.socket.emit('client handshake', JSON.stringify(room.state));
+    });
+
     room.start();
 }
 
