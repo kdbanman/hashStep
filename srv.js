@@ -87,6 +87,7 @@ ioSrv.on('connection', function (socket) {
 
         // notify all clients of new connection
         ioSrv.emit('change', activeClients);
+        socket.emit('change', activeClients);
 
         // send current client data,
         // expect current state hash (seed verification) as response
