@@ -7,10 +7,6 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- change buttons to 'connect' and 'start'
-
-<!-- -->
-
 - document intended use case step by step
 
 <!-- -->
