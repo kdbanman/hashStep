@@ -42,7 +42,7 @@ app.get('/reset/:expectedPlayers', function (req, res) {
         expectedPlayers = parseInt(req.params.expectedPlayers);
         activeClients = {};
         currHash = null;
-    catch (e) {
+    } catch (e) {
         res.send(500, JSON.stringify(e));
     }
 
@@ -100,8 +100,8 @@ ioSrv.on('connection', function (socket) {
                 // inform client of bad seed
                 socket.emit('bad seed', activeClients);
             }
-        }
-    });
+        });
+    }
 
     // report disconnections
     socket.on('disconnect', function() {
