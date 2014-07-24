@@ -24,7 +24,7 @@ var sessionSecret = 'github-public';
 app.use(session({name: sessionName, secret: sessionSecret}));
 
 // manage session on each request
-var sessionID = 0;
+var sessionID = 1;
 app.use(function (req, res, next) {
     req.session.id = req.session.id || ++sessionID;
 
@@ -80,14 +80,19 @@ ioSrv.on('connection', function (socket) {
     
     console.log('Connection from %d', socket.session.id);
 
-    // if room isn't full, perform handshake
-    if (Object.keys(activeClients).length < expectedPlayers) {
-        // add client to active list by session id
-        activeClients[socket.session.id] = 'CONNECTED';
+    // if room is full, reject
+    if (Object.keys(activeClients).length >= expectedPlayers) {
+        console.log('%d rejected - room full.', socket.session.id);
+    // otherwise, handshake
+    } else {
+        socket.join('participants');
+
+        // add to active list by session id concatenated by _ to socket id
+        socket.connID = "" + socket.session.id + "_" + socket.id;
+        activeClients[socket.connID] = 'CONNECTED';
 
         // notify all clients of new connection
         ioSrv.emit('change', activeClients);
-        socket.emit('change', activeClients);
 
         // send current client data,
         // expect current state hash (seed verification) as response
@@ -102,29 +107,25 @@ ioSrv.on('connection', function (socket) {
             if (currHash === null) currHash = clientHash;
 
             if (clientHash === currHash) {
-                activeClients[socket.session.id] = 'VERIFIED';
+                activeClients[socket.connID] = 'VERIFIED';
                 // inform client of correct seed
                 socket.emit('seed verified', activeClients);
                 // notify all clients of verification
                 ioSrv.emit('change', activeClients);
-                socket.emit('change', activeClients);
             } else {
-                activeClients[socket.session.id] = 'ERR: BAD SEED';
+                activeClients[socket.connID] = 'ERR: BAD SEED';
                 // inform client of bad seed
                 socket.emit('bad seed', activeClients);
                 // notify all clients of bad seed
                 ioSrv.emit('change', activeClients);
-                socket.emit('change', activeClients);
             }
         });
-    } else {
-        console.log('%d rejected - room full.', socket.session.id);
     }
 
     // report disconnections
     socket.on('disconnect', function() {
         console.log('Disconnection from %d', socket.session.id);
-        delete activeClients[socket.session.id];
+        delete activeClients[socket.connID];
                 
         // notify all clients of disconnection
         ioSrv.emit('change', activeClients);
