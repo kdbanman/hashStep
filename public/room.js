@@ -17,11 +17,13 @@ room.ready = function ()
     // create connection to socket server
     room.socket = io(window.location.origin);
 
+    var seedHash = esHash.hash(room.state, 'djb2');
+
     // define socket events
     room.socket.on('server handshake', function (clients) {
         //XXX should probably call an api-level room.connectionChange(newStatus) function or something, because this is app-level:
         $('#client-panel .panel-body').text(JSON.stringify(clients, null, '  '));
-        room.socket.emit('client handshake', JSON.stringify(room.state));
+        room.socket.emit('client handshake', seedHash);
     });
 
     room.socket.on('change', function (clients) {
