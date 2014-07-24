@@ -7,15 +7,19 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 <!-- -->
 
-- figure out why client change event isn't behaving correctly
+- specify more completely
+    - document intended use case step by step
+    - list client states
+        - connected
+        - verified
+        - bad seed
+        - ? rejected
 
 <!-- -->
 
-- document intended use case step by step
-
-<!-- -->
-
-- use es-hash djb2 for gamestate hash instead of JSON stringify
+- include some error output mechanism
+    - room full
+    - bad seed
 
 <!-- -->
 
