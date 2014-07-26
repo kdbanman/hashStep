@@ -63,6 +63,34 @@ Testing phase project #2 for [gameruum](gameruum.io)
 
 - point stateHash.gameruum.io and hashStep.gameruum.io correctly on nginx
 
+# use
+
+1. Load the (correctly seeded) page and click `Connect`.
+   
+   This will attempt to connect you to the real-time server with the rest of the clients.
+   When the connection is successful and your seed is verified, the `Ready` button will be enabled.
+
+    - XXX why on earth did i decide against seeding upon connection?
+        - XXX could be part of API, write `connection(seed)` function for room to call
+        - XXX but this may not be *necessary*.  as long as the "waiting" rooms are queryable for configuration, rooms can assume connection with proper seed.  the queryability need not even be part of the sync api.  in fact it shouldn't be.
+
+    - XXX the point of this is to start the lock-step procedure *now*, and build the concept of 'readiness' into the app engine, NOT the `room` api
+        - XXX I DISAGREE WITH ABOVE ACTUALLY.
+        - XXX players disconnecting and reconnecting is an async problem
+            - XXX I DISAGREE AGAIN OMG.
+            - XXX disconnect and reconnect is something gameruum must handle.
+                - XXX MORE DISAGREEMENT
+                - XXX disconnect during lock step is a lag state, where no further state change is possible until the lagger is kicked
+                - XXX *that is **not** how async joining room stuff should happen - each join and disconnect must be clean and transparent*
+
+2. Click `Ready`.
+   
+   Once all clients have done the same, the object generator will begin to operate on all clients, hopefully in lock-step synchronization.
+   The `HashCodes` section will display the results of various hashing algorithms on the current generation of object.
+   A hashcode disagreement a
+
+    - XXX hashcodes sent as 'report hashes' room command, because it's the *app* checking all hashcodes.  (room just uses djb2 for now)
+
 # about
 
 hashStep is a two page client-server application using a mersenne twister and socket.io to test cross-browser, realtime synchronization.
