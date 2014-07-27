@@ -82,6 +82,11 @@ Testing phase project #2 for [gameruum](gameruum.io)
                 - XXX MORE DISAGREEMENT
                 - XXX disconnect during lock step is a lag state, where no further state change is possible until the lagger is kicked
                 - XXX *that is **not** how async joining room stuff should happen - each join and disconnect must be clean and transparent*
+    - XXX consensus: waiting for a room to fill might be lengthy, and players may want to introduce and discuss while that happens.
+    - XXX consensus: an abrupt GAME IS GOING NOW as soon as everyone has joined would be bad.
+    - XXX consensus: join/leave phase should exist, just with *no* changes to the seed config.  I was mistakenly conflating seed config and player join/leave
+        - XXX any slot-swapping, teammaking, etc is game-app level
+        - XXX game console instead of battle.net as a metaphor for the interaction architecture: everyone gets together around a game console and picks up a controller ("connects"), and THEN picks teams, etc. either spur-of-the-moment or as per *previous* discussion.
 
 2. Click `Ready`.
    
